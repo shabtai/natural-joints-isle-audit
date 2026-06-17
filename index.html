@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notes on the deposited code and data of ISLE</title>
+<style>
+  :root{
+    --ink:#1a1d24; --soft:#52596a; --faint:#7d8597; --line:#e2e5ec; --line2:#eef0f4;
+    --bg:#f6f7f9; --paper:#ffffff; --accent:#2f57d6; --accent-soft:#eef2fe;
+    --warn:#9a6a00; --warn-bg:#fff6e3; --bad:#b3261e; --good:#1d7a4d; --code:#f3f4f7;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.62 "Charter","Georgia","Times New Roman",serif}
+  .sheet{max-width:820px;margin:32px auto;background:var(--paper);
+    border:1px solid var(--line);border-radius:8px;padding:54px 64px 70px;
+    box-shadow:0 1px 3px rgba(20,24,40,.06)}
+  .masthead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+    flex-wrap:wrap;border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:26px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .brand .wm{font-size:23px;font-weight:800;letter-spacing:-.4px;color:var(--ink)}
+  .brand .wm span{color:var(--accent)}
+  .brand .tag{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+  .contact{font-size:12.5px;text-align:right;color:var(--soft);line-height:1.65}
+  .contact a{color:var(--accent);text-decoration:none}
+  @media (max-width:720px){.masthead{flex-direction:column;align-items:flex-start}.contact{text-align:left}}
+  h1{font-size:25px;line-height:1.25;margin:0 0 6px;letter-spacing:-.2px}
+  .re{color:var(--soft);font-size:14.5px;line-height:1.5;margin:0 0 2px}
+  .re b{color:var(--ink)}
+  .docmeta{display:flex;gap:22px;flex-wrap:wrap;color:var(--faint);font-size:13px;
+    border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);
+    padding:10px 0;margin:18px 0 24px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .lead{font-size:15.5px;color:#33384a;background:var(--accent-soft);
+    border:1px solid #dbe3fb;border-radius:8px;padding:14px 18px;margin:0 0 26px}
+  h2{font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);
+    margin:34px 0 10px;padding-bottom:7px;border-bottom:1px solid var(--line);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:700}
+  h3{font-size:18px;margin:26px 0 8px;line-height:1.3}
+  .find h3{color:var(--ink)}
+  p{margin:11px 0}
+  ul,ol{margin:11px 0;padding-left:24px}
+  li{margin:5px 0}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:.85em;background:var(--code);padding:1px 5px;border-radius:4px;color:#2b2f3a}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:8px;
+    padding:12px 14px;overflow:auto;font-size:13px;line-height:1.5}
+  pre code{background:none;padding:0}
+  .find{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;
+    padding:4px 22px 16px;margin:18px 0;background:#fcfcfd}
+  .find.f1{border-left-color:var(--bad)}
+  .find.f2{border-left-color:var(--warn)}
+  .find.f3{border-left-color:var(--good)}
+  .tag{display:inline-block;font-family:-apple-system,sans-serif;font-size:11px;font-weight:700;
+    letter-spacing:.04em;border-radius:20px;padding:2px 11px;margin:2px 6px 2px 0;vertical-align:middle}
+  .tag.sub{background:#fdecea;color:var(--bad)}
+  .tag.word{background:var(--warn-bg);color:var(--warn)}
+  .tag.minor{background:#e8f5ee;color:var(--good)}
+  .req{background:#f4f6fb;border:1px solid var(--line);border-radius:7px;padding:10px 14px;margin:12px 0}
+  .req .lbl{font-family:-apple-system,sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent);display:block;margin-bottom:2px}
+  .req.fix .lbl{color:var(--good)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--soft);font-size:11px;text-transform:uppercase;letter-spacing:.05em;background:#fafbfc}
+  td:first-child{font-weight:700;color:var(--accent);width:34px}
+  .balance{background:#f3faf6;border:1px solid #cfe9da;border-radius:8px;padding:12px 16px;color:#234}
+  .appendix{font-size:14.5px;color:#33384a}
+  footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line2);
+    color:var(--faint);font-size:12.5px;font-family:-apple-system,sans-serif}
+  .nowrap{white-space:nowrap}
+  @media (max-width:720px){.sheet{padding:30px 22px;margin:0;border-radius:0}}
+  @media print{
+    body{background:#fff}
+    .sheet{box-shadow:none;border:none;margin:0;max-width:none;padding:0 6px}
+    .find,.req,.lead,.balance{break-inside:avoid}
+    h2,h3{break-after:avoid}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <div class="brand">
+      <div class="wm">Natural<span>&nbsp;Joints</span></div>
+      <div class="tag">Data &amp; Code Auditing</div>
+    </div>
+    <div class="contact">
+      <a href="https://www.natural-joints.com/">www.natural-joints.com</a><br>
+      <a href="mailto:ran@natural-joints.com">ran@natural-joints.com</a>
+    </div>
+  </div>
+
+  <h1>Notes on the deposited code and data of ISLE</h1>
+  <p class="re"><b>An independent code &amp; data audit by Natural Joints.</b></p>
+  <p class="re"><b>Re:</b> Lee, J.S. <em>et al.</em> “Harnessing synthetic lethality to predict the response to cancer treatment.” <em>Nature Communications</em> <b>9</b>, 2546 (2018). DOI&nbsp;10.1038/s41467-018-04647-1. Repository: <code>github.com/jooslee/ISLE</code>.</p>
+  <p class="re"><b>To:</b> the authors of ISLE.</p>
+  <div class="docmeta">
+    <span>Constructive reproducibility review</span>
+    <span>3 observations</span>
+    <span>Public artifacts only</span>
+  </div>
+
+  <p class="lead"><b>Purpose.</b> A constructive, reproducibility-oriented review of the publicly deposited artifacts. We report three observations and, in each case, request a clarification or suggest a small fix. None questions the central biological hypothesis: one concerns the <em>provenance</em> of the deposited drug network, one is most likely a column-labeling/wording matter, and one is a small annotation correction. Where a conclusion would depend on code that is not in the repository, we say so explicitly rather than assert an effect on the published results.</p>
+
+  <h2>1 · Methodology of this review</h2>
+  <p>We worked only from public materials: the GitHub repository — the R pipeline (<code>R/isle.r</code>, <code>R/isle.pairs.r</code>, <code>R/isle.drug.r</code>), the C++ kernels (<code>src/*.cpp</code>), the bundled <code>data/*.RData</code>, and the three Cytoscape networks (<code>networks/*.cys</code>); the published article and Supplementary Information; the 14 Supplementary Data tables; and the article’s peer-review file.</p>
+  <p>Our procedure:</p>
+  <ol>
+    <li><b>Static + dynamic code read.</b> We read the three pipeline scripts and the C++ kernels and re-ran the <em>runnable</em> portions in R (R&nbsp;4.x) against the deposited <code>data/*.RData</code>.</li>
+    <li><b>Output recovery.</b> We parsed the deposited Cytoscape sessions (the XGMML inside each <code>.cys</code>) to recover the exact node and edge sets of the published networks.</li>
+    <li><b>Supplementary-table integrity.</b> We profiled the 14 tables (Python/pandas) for count consistency, value ranges, duplicates, and label coherence.</li>
+    <li><b>Claim ↔ artifact cross-referencing.</b> We lined up statements in the Methods/SI against the code’s behavior and against the deposited outputs.</li>
+    <li><b>Independent semantic profiling.</b> We ran an automated column-semantics / data-quality pass over the supplementary tables as a second, independent check.</li>
+  </ol>
+  <p>Every observation below was verified by re-running code and — where possible — <b>cross-validated against the deposited network output</b>, not only against the source code.</p>
+
+  <h2>2 · What we were and were not able to audit</h2>
+  <p><b>Auditable (and audited):</b> the network-identification code; the bundled cell-line / essentiality screens and other <code>data/*.RData</code>; the deposited cSL networks (the published results of record); the supplementary tables; the paper / SI / peer-review text.</p>
+  <p><b>Not auditable from the public artifacts:</b></p>
+  <ul>
+    <li><b>Steps I–II of the pipeline could not be re-run.</b> Both <code>isle.r</code> and <code>isle.drug.r</code> begin with <code>load("data/prob.TCGA.RData")</code>, but that file is not in the repository and the documented source (<code class="nowrap">ftp://ftp.umiacs.umd.edu/pub/jooslee/prob.TCGA.RData</code>) is no longer reachable — also the subject of the repository’s open issue&nbsp;#1.</li>
+    <li><b>The headline performance numbers could not be reproduced.</b> The repository contains the network-<em>identification</em> code only; the prediction/evaluation code that produces the cSL-score, ROC/AUC, Kaplan–Meier and C-index results is not deposited.</li>
+  </ul>
+  <p>We therefore confined ourselves to what is provable from the deposited code, the deposited network outputs, and the published text, and we flag explicitly where a conclusion would require the unreleased prediction code.</p>
+  <div class="balance"><b>For balance</b>, several things we checked held up well, and we note them so the three findings are read in context: the C++ statistical kernels (<code>HyperGeometricTest.pair.cpp</code>, <code>essentialityTestPair.cpp</code>) are correctly specified; and we found <b>no circularity</b> in the survival analysis — the cSL network is selected on TCGA survival but validated on the independent METABRIC and GSE25055 cohorts, which is appropriate.</div>
+
+  <h2>3 · Findings</h2>
+
+  <div class="find f1">
+    <h3>Finding 1 — The deposited drug-network pipeline does not appear to incorporate Initial Set I (the gold-standard SL set)</h3>
+    <span class="tag sub">substantive · provenance</span>
+    <p><b>Observation.</b> In <code>R/isle.drug.r</code> (line&nbsp;69) and <code>R/isle.pairs.r</code> (line&nbsp;22), the gold-standard set is read as <code>gd$sl</code>:</p>
+    <pre><code>gd$sr = gd$sl[gd$flag==1,]</code></pre>
+    <p>The deposited object <code>gd</code> in <code>data/sl.golden.set.RData</code> has fields <code>sr</code>, <code>sr0</code>, <code>flag</code>, <code>dat</code> — there is <b>no <code>$sl</code></b>. (For comparison, <code>R/isle.r</code> line&nbsp;75 reads <code>gd$sr</code> and is unaffected.) As a consequence, the gold-pair injection that should force the curated pairs through Step&nbsp;0 — the block that sets <code>p.ess[iix] = 1e-6</code> so Initial&nbsp;Set&nbsp;I survives the essentiality gate — receives <b>zero pairs</b>. The mechanism is subtle: the failed assignment removes the <code>sr</code> element, after which <code>gd$sr</code> partial-matches the remaining <code>gd$sr0</code> and returns the gold pairs as <em>gene symbols</em>, whereas the drug candidate pool is built from <em>integer gene indices</em>; the subsequent <code>match(...)</code> therefore returns 0 of 12,066.</p>
+    <p><b>Cross-validation against the deposited output.</b> This is not only a source-code observation. The deposited drug network (<code>networks/ISLE_drug_cSL_network.cys</code>: 232 edges, 16 drug nodes — matching the paper) contains <b>none</b> of the 6,033 gold-standard pairs as edges. For the drug-target hub genes that are themselves gold-standard genes, <b>none</b> of their curated SL partners appear among their network neighbors (e.g. TOP1: 43 gold partners, 0 present; ERBB2: 22, 0). Had the injection run, those partners would have been forced through Step&nbsp;0 and should dominate those neighborhoods; their complete absence indicates the injection did not run when the deposited network was produced.</p>
+    <p><b>Implication and what we cannot determine.</b> The Methods describe the candidate pool as Initial&nbsp;Set&nbsp;I (gold standard) ∪ Initial&nbsp;Set&nbsp;II (inferred). For the drug-target network <em>as deposited</em>, Set&nbsp;I appears not to have contributed. We <b>cannot determine</b> whether (a)&nbsp;the published analysis used a different, unreleased gold-standard file/variable in which the field was named <code>sl</code>, or (b)&nbsp;the deposited drug network was in fact built from Set&nbsp;II only. Either way, the deposited code and the deposited network are mutually consistent in omitting Set&nbsp;I, so the discrepancy is with the <em>described</em> method rather than an artifact of our re-run.</p>
+    <div class="req"><span class="lbl">Request</span>Could you confirm which gold-standard file/variable the published drug network used? If it differs from the deposited <code>sl.golden.set.RData</code>, depositing that version would resolve this immediately. If the drug network was intentionally built without Set&nbsp;I, a note to that effect would reconcile the code with the Methods.</div>
+    <div class="req fix"><span class="lbl">Suggested fix</span>Use <code>gd$sr</code>, and ensure the gold pairs are mapped into the same integer-index space as the candidate pool before <code>match(...)</code>.</div>
+  </div>
+
+  <div class="find f2">
+    <h3>Finding 2 — The “% Growth inhibition” columns in Supplementary Data 7 and 8 appear to contain % viability</h3>
+    <span class="tag word">most likely a labeling / wording matter · results unaffected</span>
+    <p><b>Observation.</b> Several independent signals indicate that the SD7 and SD8 columns headed “% Growth inhibition” actually contain cell <b>viability</b> (the complement of inhibition):</p>
+    <ul>
+      <li>potent cytotoxics sit near 0 (Tamoxifen 0.1, Doxorubicin 1.3, Docetaxel 8.2, Topotecan 6.2), while non-cytotoxic compounds sit near 100 (Citalopram 98, Allopurinol 102, Ibuprofen 100);</li>
+      <li>a large fraction of values exceed 100 (≈48% in SD7, ≈15% in SD8; max ≈ 152) — implausible for “% inhibition,” but expected for viability (proliferation above control);</li>
+      <li>the assay is described as quantifying stained-nuclei counts, which is a viability readout;</li>
+      <li>Spearman(column, established drug potency) ≈ <b>−0.857</b>.</li>
+    </ul>
+    <p><b>Why we believe this is most likely a labeling/wording issue and not a results problem.</b> Read literally, the Methods define responders as “top 33% of observed growth inhibition = effective.” If that rule were applied to these columns as deposited, the responder set would be the <em>highest-viability</em> (least active) compounds, and — because the cSL-score increases with predicted efficacy — the predictor would <em>anti-correlate</em> with the labels, yielding AUC&nbsp;&lt;&nbsp;0.5. The paper instead reports AUC&nbsp;≈&nbsp;0.73–0.75. <b>An inverted pipeline cannot produce AUC&nbsp;&gt;&nbsp;0.5</b>, so the reported results indicate the analysis used the correct orientation. We therefore believe the discrepancy is confined to the <b>column header (and the corresponding Methods phrasing)</b> in the deposited artifacts, and that the published numbers are unaffected. We were unable to confirm this directly only because the responder-labeling / prediction code is not deposited.</p>
+    <div class="req"><span class="lbl">Request</span>Could you confirm that the deposited SD7/SD8 values are viability, in which case the header and the Methods sentence would read “% viability” (or the values should be reported as <code>100 − x</code>)? Depositing the few lines that derive the responder labels from these columns would close the question conclusively.</div>
+    <div class="req fix"><span class="lbl">Suggested fix</span>Relabel the columns as “% viability” (or transform to <code>100 − x</code>) and align the Methods wording.</div>
+  </div>
+
+  <div class="find f3">
+    <h3>Finding 3 — A few drug→target annotations in Supplementary Data 13 appear incorrect</h3>
+    <span class="tag minor">minor · bounded · no headline drug affected</span>
+    <p><b>Observation.</b> Several mappings in SD13 do not match the listed drugs’ established pharmacology, e.g. <b>Dacarbazine→PGD</b> and <b>Lomustine→STMN4</b> (both DNA-alkylating agents whose listed targets are unrelated to their mechanism); <b>Carmustine→GSR</b> as the sole target (a secondary effect); <b>Bleomycin→LIG1/LIG3</b>; and <b>Epirubicin→CHD1/TOP2A</b> (TOP2A is correct; CHD1 is questionable).</p>
+    <p><b>Effect — and why it is small.</b> Because a drug’s cSL-score is computed from its targets’ SL partners, an incorrect target causes that specific drug’s prediction to reflect the wrong gene’s biology. The effect on the paper is bounded:</p>
+    <ul>
+      <li>Of the questionable mappings, only <b>Dacarbazine→PGD</b> and <b>Epirubicin→CHD1</b> are <em>live edges</em> in the deposited drug network; the others (Lomustine, Carmustine, Bleomycin) were pruned and contribute nothing to any output.</li>
+      <li>Epirubicin remains partly anchored by the correct <b>TOP2A</b>, so its score is diluted rather than wrong; that leaves Dacarbazine as the only fully-incorrect live mapping.</li>
+      <li>Neither drug is among the headline validation drugs, and every reported metric is an aggregate over many drugs, so the contribution to any AUC / hit-rate is at most ~1/N. No stated conclusion depends on these drugs.</li>
+    </ul>
+    <div class="req fix"><span class="lbl">Request / suggested fix</span>Please review and correct the SD13 annotations — in particular Dacarbazine and Epirubicin — ideally against a standard drug-target reference (e.g. DrugBank).</div>
+  </div>
+
+  <h2>4 · Summary and requests</h2>
+  <table>
+    <tr><th>#</th><th>Finding</th><th>Status</th><th>What we ask</th></tr>
+    <tr><td>1</td><td>Deposited drug network appears to omit Initial Set I (gold standard); <code>gd$sl</code> vs <code>gd$sr</code>, cross-validated against the deposited network (0/229 hub gold-partner overlap)</td><td>Code+output discrepancy with the Methods; cause undetermined</td><td>Confirm which gold-standard variable/file the published network used; deposit it if different</td></tr>
+    <tr><td>2</td><td>SD7/SD8 “% Growth inhibition” columns appear to be % viability</td><td>Most likely header/Methods wording; reported AUC&nbsp;&gt;&nbsp;0.5 indicates the analysis was oriented correctly</td><td>Confirm units; relabel as “% viability” or transform; optionally deposit the responder-labeling step</td></tr>
+    <tr><td>3</td><td>A few SD13 drug→target annotations look incorrect (Dacarbazine, Epirubicin live)</td><td>Minor; bounded, no headline drug affected</td><td>Correct the annotations</td></tr>
+  </table>
+  <p>We would also gently note that depositing <b><code>prob.TCGA.RData</code></b> (e.g. on Zenodo) and the <b>prediction/evaluation scripts</b> would make the central results independently reproducible and would let the two open questions above (Findings&nbsp;1 and&nbsp;2) be settled definitively.</p>
+  <p>We raise these in a collegial spirit; ISLE remains a valuable contribution, and we would be glad to share our exact scripts and intermediate outputs.</p>
+
+  <h2>Appendix · reproduction pointers</h2>
+  <div class="appendix">
+    <p><b>Finding 1.</b> In R: <code>load("data/sl.golden.set.RData"); names(gd)</code> → <code>"sr" "sr0" "flag" "dat"</code> (no <code>sl</code>). Running the <code>isle.drug.r:69</code> line yields a zero-length gold injection. Network recovery: parse <code>networks/ISLE_drug_cSL_network.cys</code> (XGMML) → 232 edges / 16 drugs; intersect its edge set with <code>gd$sr</code> (mapped to symbols via any screen’s 19,001-gene <code>genes</code> vector) → 0.</p>
+    <p><b>Finding 2.</b> Read SD7/SD8 (<code>SupplementaryData7.xlsx</code>, <code>SupplementaryData8.xlsx</code>); inspect the named drugs above; tabulate the fraction of values&nbsp;&gt;&nbsp;100; compute Spearman against a potency ranking.</p>
+    <p><b>Finding 3.</b> Read SD13 (<code>SupplementaryData13.xlsx</code>); check the listed targets against a drug-target database; confirm which mappings appear as edges in the deposited drug network.</p>
+  </div>
+
+  <footer>Prepared from public artifacts of <code>github.com/jooslee/ISLE</code> and the published article + Supplementary Information. Constructive review — provided for the authors’ consideration. 2026.</footer>
+
+</div>
+</body>
+</html>
